@@ -37,7 +37,7 @@ def sample_uniform_noise(n, p, variances):
         e[:, i] = np.random.uniform(low=-scale, high=scale, size=n)
     return e
 
-def generate_dataset(E, B, permutation=None):
+def generate_dataset(E, B, n, permutation=None):
     """
     Generate dataset X from external influences E and connection matrix B,
     with Gaussian shift and optional column permutation.
