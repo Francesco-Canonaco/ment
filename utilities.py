@@ -1,5 +1,6 @@
 
 import numpy as np
+import pandas as pd
 
 def sample_from_disjoint_interval(size):
     coin_flip = np.random.rand(size) < 0.5
@@ -71,3 +72,26 @@ def generate_dataset(E, B, n, permutation=None):
 
 
 
+def compute_rescaling_matrix(adj_matrix: np.ndarray, X: pd.DataFrame) -> np.ndarray:
+    """
+    Compute the rescaling matrix R such that:
+    B = R * B_tilde
+
+    Parameters:
+    - adj_matrix: np.ndarray, shape (n, n)
+        Adjacency matrix (non-zero entries represent edges i → j)
+    - X: pd.DataFrame, shape (n_samples, n_variables)
+        Original (non-normalized) data
+
+    Returns:
+    - R: np.ndarray, shape (n, n)
+        Rescaling matrix
+    """
+    sums = X.sum().values
+    n = adj_matrix.shape[0]
+    R = np.zeros((n, n))
+    for i in range(n):         # row: target node
+        for j in range(n):     # col: source node
+            if adj_matrix[i, j] != 0:
+                R[i, j] = sums[i] / sums[j]
+    return R
