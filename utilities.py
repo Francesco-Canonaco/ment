@@ -218,7 +218,7 @@ def run_experiment(p, s, n, r, PERT, c):
         B_est = invert_permutation(B_rescaled, perms)
 
         mse_ = average_squared_error(Bs_true[g], B_est)
-        shd_ = SHD((Bs_true[g] != 0).astype(int), (B_est != 0).astype(int), True)
+        shd_ = SHD((Bs_true[g] != 0).astype(int), (B_est != 0).astype(int), False)
 
         # Precision and Recall
         B_true_bin = (Bs_true[g] != 0).astype(int)
